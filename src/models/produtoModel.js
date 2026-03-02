@@ -2,9 +2,9 @@ import pool from "../config/db.js";
 
 const produtoModel = {
     
-    insertProduto: async (pNome, pValor, pVinculoImage, pData)=> {
-        const sql = 'INSERT INTO produtos (nome, valor, vinculo_image, data_cad) VALUES (?,?,?,?);';
-        const values = [pNome, pValor, pVinculoImage, pData];
+    insertProduto: async (pIdCategoria, pNome, pValor, pVinculoImage)=> {
+        const sql = 'INSERT INTO produtos (id_categoria, nome, valor, vinculo_image) VALUES (?,?,?,?);';
+        const values = [pIdCategoria, pNome, pValor, pVinculoImage];
         const [rows] = await pool.execute(sql, values);
         return rows;
     },
@@ -15,9 +15,9 @@ const produtoModel = {
         return rows;
     },
 
-    updateProduto: async (pId, pNome, pValor, pData ) => {
-        const sql = 'UPDATE produtos SET nome=?, valor=?, data_cad=? WHERE id_produto=?;'
-        const values = [pNome, pValor, pData, pId] //Ordem correta de acordo com o comando sql 
+    updateProduto: async (pId, pNome, pValor ) => {
+        const sql = 'UPDATE produtos SET nome=?, valor=? WHERE id_produto=?;'
+        const values = [pNome, pValor, pId] //Ordem correta de acordo com o comando sql 
         const [rows] = await pool.query(sql, values);
         return rows;
     },
